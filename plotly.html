@@ -1,0 +1,89 @@
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <h1>Hello!</h1>
+  </div>
+  <div id="tester"></div>
+  <div>This is s text below the chart</div>
+  <div id="plotly_hover_div">This is to change</div>
+
+  <div id="tester1" style="width:600px;height:500px;"></div>
+  <div>This is the basic pie chart</div>
+  <div id="event">This is the other event</div>
+  <script>
+    var trace1 =
+      {
+        x: [0, 1, 2],
+        y: [20, 14, 23],
+        type: 'bar'
+      };
+
+    var trace2 = {
+      x: [4,5],
+      y: [10,11],
+      type: 'bar',
+      marker: {color: 'lightblue'}
+    }
+
+    var data = [trace1, trace2];
+
+    var layout = {
+      title: 'My beautiful chart',
+      xaxis: {showgrid: true},
+      yaxis: {showline: true,
+              zerolinecolor: "lightgreen",
+      },
+      paper_bgcolor: "pink",
+      height: 300,
+      margin: {
+        l: 20,
+        r: 20,
+        b: 20,
+        t: 80,
+        pad: 4
+      }
+    };
+
+    var config = {
+      responsive: true,
+      displayModeBar: true,
+      modeBarButtonsToRemove: ['pan2d','select2d','lasso2d', 'autoScale2d', 'resetScale2d','zoomOut2d']
+    };
+
+    var plot = document.getElementById("tester");
+    var info_div = document.getElementById("plotly_hover_div");
+
+    Plotly.newPlot(plot, data, layout, config);
+
+    plot.on('plotly_hover', function(d){
+      var xval = d.points[0]['x']
+      info_div.innerHTML = "I hovered on x: "+xval;
+    });
+
+    plot.on('plotly_unhover', function(d){
+      info_div.innerHTML = "Unhovered";
+    });
+
+  </script>
+  <script>
+    var data = [{
+  values: [19, 26, 55],
+  labels: ['monkeys', 'crocodiles', 'elephants'],
+  type: 'pie',
+  textinfo: "label+percent",
+  textposition: "outside",
+  automargin: true
+}];
+
+var layout = {
+  height: 400,
+  width: 500
+};
+
+Plotly.newPlot('tester1', data, layout);
+  </script>
+
+</body>
